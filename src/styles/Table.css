@@ -1,0 +1,47 @@
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .customer-table th,
+  .customer-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .customer-table th {
+    background-color: #f1f1f1;
+  }
+  
+  .detail-button,
+  .edit-button,
+  .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    white-space: nowrap; /* Tránh chữ bị tràn dòng */
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .table td img {
+    max-width: 50px; /* Định dạng hình ảnh cho cột hình ảnh */
+  }
+  
+  .container {
+    overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
+  }

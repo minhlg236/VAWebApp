@@ -1,0 +1,28 @@
+
+  .search-bar {
+    width: 50%;
+  margin-left: 25%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    flex-grow: 1;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .search-button, .create-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search-button {
+    background-color: #ddd;
+  }
+  

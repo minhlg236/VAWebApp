@@ -1,0 +1,32 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+}
+
+.login-container {
+  height: 100vh;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card h2 {
+  color: #4a4a4a;
+}
+
+.btn-primary {
+  background-color: #28a745; /* Mã màu xanh lá cây */
+  border-color: #28a745; /* Mã màu xanh lá cây */
+}
+
+.btn-primary:hover {
+  background-color: #218838; /* Màu xanh lá cây đậm hơn khi hover */
+  border-color: #1e7e34; /* Màu xanh lá cây đậm hơn khi hover */
+}
+
+.form-check-input:checked {
+  background-color: #28a745; /* Mã màu xanh lá cây */
+  border-color: #28a745; /* Mã màu xanh lá cây */
+}

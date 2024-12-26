@@ -1,0 +1,52 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 13%; /* Khoảng cách giữa SearchBar và nút Create */
+    
+  }
+  
+  .create-button {
+    width: 10%;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: #4CAF50; /* Màu xanh lá */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .create-button:hover {
+    background-color: #45a049; /* Màu xanh đậm hơn khi hover */
+  }
+  
+  
+  .ingredient-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .ingredient-table th,
+  .ingredient-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .ingredient-table th {
+    background-color: #f1f1f1;
+  }
+  
+  .detail-button {
+    background-color: #008CBA;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .detail-button:hover {
+    background-color: #007bb5;
+  }
+  

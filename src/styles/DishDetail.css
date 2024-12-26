@@ -1,0 +1,37 @@
+.dish-detail-container {
+  display: flex; /* Sử dụng flexbox để dễ dàng kiểm soát bố cục */
+  transition: all 0.3s ease-in-out;
+}
+
+.dish-detail-container.image-hidden {
+  flex-direction: row-reverse; /* Đảo ngược thứ tự hiển thị khi ẩn ảnh */
+}
+
+.dish-detail-image-wrapper {
+  width: 30%;
+  max-width: 30%;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden; /* Ẩn phần thừa khi cuộn */
+}
+
+.dish-detail-image-wrapper.hidden {
+  width: 0px;
+  max-width: 0px;
+}
+
+.dish-detail-content {
+  flex: 1;
+  padding-right: 24px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.dish-detail-content.image-hidden {
+  padding-right: 0;
+}
+
+.scrollable-content {
+  overflow-y: auto; /* Cho phép cuộn nội dung */
+  max-height: calc(100vh - 180px); /* Điều chỉnh chiều cao cho phù hợp */
+  padding-right: 10px; /* Khoảng cách giữa thanh cuộn và lề phải*/
+}

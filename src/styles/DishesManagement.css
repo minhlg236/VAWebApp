@@ -1,0 +1,111 @@
+.dishes-management {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #E0F2E9;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-item {
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.sidebar-item.logout {
+  margin-top: auto;
+  color: red;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  font-weight: normal;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tab.active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+
+.customer-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customer-table th, .customer-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.customer-table th {
+  background-color: #f1f1f1;
+}
+
+.detail-button, .edit-button, .delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar-item.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 13%; /* Khoảng cách giữa SearchBar và nút Create */
+  
+}
+
+.create-button {
+  width: 10%;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: #4CAF50; /* Màu xanh lá */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-button:hover {
+  background-color: #45a049; /* Màu xanh đậm hơn khi hover */
+}

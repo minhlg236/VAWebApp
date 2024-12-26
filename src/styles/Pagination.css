@@ -1,0 +1,32 @@
+.Table__pagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+.Table__pageButton {
+  font-size: 15px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.Table__pageButton:disabled {
+  cursor: not-allowed;
+  color: gray;
+}
+
+.Table__pageButton--active {
+  color: #45b3e3;
+  font-weight: bold;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: rgba(255, 0, 0, 0.1); /* Thêm màu nền để kiểm tra */
+}
+
+

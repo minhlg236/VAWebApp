@@ -1,0 +1,37 @@
+.create-article-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-article-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.article-input-group {
+  margin-bottom: 20px;
+}
+
+.article-input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px; /* Tăng chiều cao */
+  font-size: 16px; /* Tăng cỡ chữ */
+  width: 100%; /* chỉnh chiều rộng*/
+}
+
+/* Căn giữa và margin top cho button */
+.create-article-container button[type="submit"] {
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

@@ -1,0 +1,92 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+}
+
+.order-detail-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-section,
+.payment-section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+ul li strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.back-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}

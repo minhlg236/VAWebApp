@@ -1,0 +1,53 @@
+.create-order-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-order-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-input-group {
+    margin-bottom: 15px;
+}
+
+.order-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.order-input-group input,
+.order-input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.order-create-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.order-create-button button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.order-create-button button:hover {
+    background-color: #45a049;
+}
