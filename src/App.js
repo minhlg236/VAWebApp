@@ -98,7 +98,7 @@ function App() {
 
         {/* Các Routes khác */}
         <Route
-          path="/user/:id"
+          path="/userDetail/:id"
           element={
             <PrivateRoute roles={["Admin"]}>
               <UserDetail />

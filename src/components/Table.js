@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { Table, Button, Space, Popconfirm, message } from "antd";
+import { Table, Button, Space, Popconfirm, message, Tag, Avatar } from "antd"; // Added Avatar
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EnhancedTable = ({ rows }) => {
+const EnhancedTable = ({ rows, onUserUpdated }) => {
   const navigate = useNavigate();
 
-  const handleDelete = async (userId) => {
+  const handleDelete = async (record) => {
     try {
       const token = localStorage.getItem("authToken");
       await axios.put(
         `https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/v1/users/updateStaff`,
-        { userId, status: "inactive" },
+        {
+          userId: record.userId,
+          username: record.username,
+          password: record.password, // **Lưu ý về bảo mật**
+          email: record.email,
+          phoneNumber: record.phoneNumber,
+          status: "inactive",
+          roleId: record.roleId,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -19,6 +27,7 @@ const EnhancedTable = ({ rows }) => {
         }
       );
       message.success("Người dùng đã bị khóa.");
+      onUserUpdated(); // Gọi hàm callback để cập nhật lại danh sách
     } catch (error) {
       console.error("Error updating user status:", error);
       message.error("Không thể cập nhật trạng thái người dùng.");
@@ -27,9 +36,29 @@ const EnhancedTable = ({ rows }) => {
 
   const columns = [
     {
+      title: "ID",
+      dataIndex: "userId",
+      key: "userId",
+      sorter: (a, b) => a.userId - b.userId, // Added sorting
+    },
+    {
       title: "Tên người dùng",
       dataIndex: "username",
       key: "username",
+    },
+    {
+      title: "Avatar",
+      dataIndex: "imageUrl", // Assuming you might have an imageUrl
+      key: "imageUrl",
+      render: (imageUrl) => (
+        <Avatar
+          shape="circle" // Changed to circle for users
+          size={48}
+          src={imageUrl}
+          alt="User"
+          style={{ objectFit: "cover" }}
+        />
+      ),
     },
     {
       title: "Email",
@@ -56,11 +85,20 @@ const EnhancedTable = ({ rows }) => {
         return roles[roleId] || "Không xác định";
       },
     },
+
     {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
-      render: (status) => (status === "active" ? "Hoạt động" : "Bị cấm"),
+      render: (status) => {
+        let color = "red";
+        let text = "Bị cấm";
+        if (status === "active") {
+          color = "green";
+          text = "Hoạt động";
+        }
+        return <Tag color={color}>{text}</Tag>;
+      },
     },
     {
       title: "Hành động",
@@ -69,13 +107,14 @@ const EnhancedTable = ({ rows }) => {
         <Space size="middle">
           <Button
             type="link"
-            onClick={() => navigate(`/user/${record.userId}`)}
+            onClick={() => navigate(`/userDetail/${record.userId}`)}
           >
             Xem chi tiết
           </Button>
+
           <Popconfirm
             title="Bạn có chắc chắn muốn khóa người dùng này không?"
-            onConfirm={() => handleDelete(record.userId)}
+            onConfirm={() => handleDelete(record)}
             okText="Có"
             cancelText="Không"
           >

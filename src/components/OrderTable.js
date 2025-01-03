@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Button, Tag, Space, Select, message } from "antd";
+import { Table, Button, Space, Select, message, Tag } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +39,31 @@ const OrderTable = ({
         { headers }
       );
 
+      // Logic to call the createGhnOrder API when status is set to "delivering"
+      if (newStatus === "delivering") {
+        try {
+          const ghnResponse = await axios.post(
+            `https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/v1/orders/createGhnOrder/${orderId}`,
+            {},
+            { headers }
+          );
+          console.log("createGhnOrder API response:", ghnResponse.data);
+          message.success("Đã tạo đơn hàng GHN thành công.");
+        } catch (error) {
+          console.error("Error calling createGhnOrder API:", error);
+          message.error("Lỗi khi tạo đơn hàng GHN.");
+          // Optionally revert the status update if createGhnOrder fails
+          setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+              order.orderId === orderId
+                ? { ...order, status: "processing" }
+                : order
+            )
+          );
+          return; // Exit the function to prevent further actions based on the failed GHN order creation
+        }
+      }
+
       let content = "";
       switch (newStatus) {
         case "processing":
@@ -52,6 +77,9 @@ const OrderTable = ({
           break;
         case "cancel":
           content = "Đơn hàng của bạn đã bị hủy.";
+          break;
+        case "failed":
+          content = "Đơn hàng của bạn giao không thành công.";
           break;
         default:
           content = "Trạng thái đơn hàng của bạn đã thay đổi.";
@@ -111,21 +139,43 @@ const OrderTable = ({
       title: "Trạng Thái",
       dataIndex: "status",
       key: "status",
-      render: (status, record) => (
-        <Select
-          value={status}
-          onChange={(newStatus) =>
-            handleUpdateStatus(record.orderId, newStatus, record.userId)
-          }
-          style={{ width: 150 }}
-        >
-          <Option value="pending">Chờ Xử Lý</Option>
-          <Option value="processing">Đang Xử Lý</Option>
-          <Option value="delivering">Đang Giao</Option>
-          <Option value="delivered">Đã Giao</Option>
-          <Option value="cancel">Đã Hủy</Option>
-        </Select>
-      ),
+      render: (status, record) => {
+        let color = "default";
+        let text = "";
+
+        if (status === "delivered") {
+          color = "green";
+          text = "Đã giao hàng";
+        } else if (status === "cancel") {
+          color = "red";
+          text = "Đã hủy";
+        } else if (status === "failed") {
+          color = "orange";
+          text = "Giao hàng thất bại";
+        }
+        const showDropdown = ["pending", "processing", "delivering"].includes(
+          status
+        );
+
+        return (
+          <Space>
+            {!showDropdown && <Tag color={color}>{text}</Tag>}
+            {showDropdown && (
+              <Select
+                value={status}
+                onChange={(newStatus) =>
+                  handleUpdateStatus(record.orderId, newStatus, record.userId)
+                }
+                style={{ width: 150 }}
+              >
+                <Option value="pending">Chờ xử lý</Option>
+                <Option value="processing">Đang xử lý</Option>
+                <Option value="delivering">Đang giao</Option>
+              </Select>
+            )}
+          </Space>
+        );
+      },
     },
     {
       title: "Hành Động",
