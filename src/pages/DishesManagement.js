@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Spin, message } from "antd";
+import { Button, Spin, message, Row, Col } from "antd";
 import MainLayout from "../components/MainLayout";
 import SearchBar from "../components/SearchBar";
 import DishTable from "../components/DishTable";
 import axios from "axios";
+import styled from "styled-components";
 
+const ButtonStyled = styled(Button)`
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
+`;
 const DishesManagement = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,18 +127,24 @@ const DishesManagement = () => {
 
   return (
     <MainLayout title="Quản lý món ăn">
-      <div
-        style={{
-          marginBottom: "16px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
+      <Row
+        style={{ marginBottom: "16px" }}
+        align="middle"
+        justify="space-between"
       >
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <Button type="primary" onClick={() => navigate("/create-dish")}>
-          Tạo món ăn mới
-        </Button>
-      </div>
+        <Col span={24} md={12}>
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </Col>
+        <Col
+          span={24}
+          md={12}
+          style={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          <ButtonStyled type="primary" onClick={() => navigate("/create-dish")}>
+            Tạo món ăn mới
+          </ButtonStyled>
+        </Col>
+      </Row>
       {isLoading ? (
         <Spin tip="Đang tải danh sách món ăn..." />
       ) : filteredDishes.length === 0 ? (

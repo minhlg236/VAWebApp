@@ -1,6 +1,20 @@
 import React from "react";
 import { Table, Button, Space, Tag, Image } from "antd";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledTable = styled(Table)`
+  .ant-table-cell {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      padding: 8px;
+    }
+  }
+`;
 
 const ArticleTable = ({ rows }) => {
   const navigate = useNavigate();
@@ -31,6 +45,7 @@ const ArticleTable = ({ rows }) => {
       dataIndex: "articleId",
       key: "articleId",
       sorter: (a, b) => a.articleId - b.articleId,
+      width: 50,
     },
     {
       title: "Tiêu đề",
@@ -52,11 +67,13 @@ const ArticleTable = ({ rows }) => {
           </div>
         );
       },
+      width: 200,
     },
     {
       title: "Tác giả",
       dataIndex: "authorName",
       key: "authorName",
+      width: 150,
     },
     {
       title: "Nội dung",
@@ -79,6 +96,7 @@ const ArticleTable = ({ rows }) => {
           </div>
         );
       },
+      width: 300,
     },
     {
       title: "Hình ảnh",
@@ -98,6 +116,7 @@ const ArticleTable = ({ rows }) => {
           "Không có ảnh"
         );
       },
+      width: 80,
     },
     {
       title: "Trạng thái",
@@ -112,6 +131,7 @@ const ArticleTable = ({ rows }) => {
         }
         return <Tag color={color}>{text}</Tag>;
       },
+      width: 100,
     },
     {
       title: "Hành động",
@@ -126,15 +146,17 @@ const ArticleTable = ({ rows }) => {
           </Button>
         </Space>
       ),
+      width: 150,
     },
   ];
 
   return (
-    <Table
+    <StyledTable
       columns={columns}
       dataSource={rows}
       rowKey="articleId"
       pagination={{ pageSize: 5 }}
+      scroll={{ x: "max-content" }}
     />
   );
 };
