@@ -153,7 +153,7 @@ const NutritionCriteriaDetail = () => {
                   criteria.bmiRange || "Không có dữ liệu"
                 )}
               </Descriptions.Item>
-              <Descriptions.Item label="Nghề Nghiệp">
+              {/* <Descriptions.Item label="Nghề Nghiệp">
                 {isEditing ? (
                   <Input
                     value={criteria.profession}
@@ -167,7 +167,7 @@ const NutritionCriteriaDetail = () => {
                 ) : (
                   criteria.profession || "Không có dữ liệu"
                 )}
-              </Descriptions.Item>
+              </Descriptions.Item> */}
               <Descriptions.Item label="Mức Độ Hoạt Động">
                 {isEditing ? (
                   <Select

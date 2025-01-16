@@ -15,6 +15,7 @@ import {
   Avatar,
   Image,
   Divider,
+  Input,
 } from "antd";
 import {
   EditOutlined,
@@ -28,6 +29,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import MainLayout from "../components/MainLayout";
 
 const { Title, Text } = Typography;
+const { TextArea } = Input;
 const licenseKey =
   "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3MzczMzExOTksImp0aSI6ImQ1MTEwZmQzLWFmM2YtNGZiYS1iOWQyLWYwMDk4OWI0NjE2ZSIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjA1ZjNiYTc5In0.k8ebruq03MuqKM_UHF7qLwhru5ArgHu1x8w4U8ipPfJ6uZxr-j_6lS35RvVQ8U0ee8OVbs8Nb4uwCjR8GQIjIg";
 
@@ -333,30 +335,14 @@ const ArticleDetail = () => {
                   </Descriptions.Item>
                   <Descriptions.Item label="Tiêu đề">
                     {isEditing ? (
-                      <CKEditor
-                        editor={ClassicEditor}
-                        config={{
-                          licenseKey,
-                          toolbar: [
-                            "heading",
-                            "|",
-                            "bold",
-                            "italic",
-                            "link",
-                            "bulletedList",
-                            "numberedList",
-                            "blockQuote",
-                            "|",
-                            "imageUpload",
-                            "undo",
-                            "redo",
-                          ],
-                        }}
-                        data={formData.title}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-                          setFormData((prev) => ({ ...prev, title: data }));
-                        }}
+                      <Input
+                        value={formData.title}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            title: e.target.value,
+                          })
+                        }
                       />
                     ) : (
                       <div

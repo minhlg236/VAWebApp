@@ -75,31 +75,31 @@ const MenuConfigTable = ({ rows, setMenuConfigs }) => {
 
   const columns = [
     {
-      title: "Menu Config ID",
+      title: "ID",
       dataIndex: "menuConfigId",
       key: "menuConfigId",
       sorter: (a, b) => a.menuConfigId - b.menuConfigId,
     },
     {
-      title: "Menu Breakfast",
+      title: "Menu Sáng",
       dataIndex: "menuBreakfast",
       key: "menuBreakfast",
       render: (text, record) => record?.menuBreakfast,
     },
     {
-      title: "Menu Lunch",
+      title: "Menu Trưa",
       dataIndex: "menuLunch",
       key: "menuLunch",
       render: (text, record) => record?.menuLunch,
     },
     {
-      title: "Menu Dinner",
+      title: "Menu Tối",
       dataIndex: "menuDinner",
       key: "menuDinner",
       render: (text, record) => record?.menuDinner,
     },
     {
-      title: "Actions",
+      title: "Hành động",
       key: "actions",
       render: (_, record) => (
         <Space size="middle">
@@ -132,7 +132,7 @@ const MenuConfigTable = ({ rows, setMenuConfigs }) => {
       >
         <Form form={form} onFinish={handleUpdate} layout="vertical">
           <Form.Item
-            label="Menu Breakfast"
+            label="Menu Sáng"
             name="menuBreakfast"
             rules={[
               {
@@ -144,7 +144,7 @@ const MenuConfigTable = ({ rows, setMenuConfigs }) => {
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
-            label="Menu Lunch"
+            label="Menu Trưa"
             name="menuLunch"
             rules={[
               {
@@ -156,7 +156,7 @@ const MenuConfigTable = ({ rows, setMenuConfigs }) => {
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
-            label="Menu Dinner"
+            label="Menu Tối"
             name="menuDinner"
             rules={[
               {

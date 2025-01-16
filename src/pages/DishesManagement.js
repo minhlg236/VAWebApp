@@ -132,9 +132,8 @@ const DishesManagement = () => {
         align="middle"
         justify="space-between"
       >
-        <Col span={24} md={12}>
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </Col>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
         <Col
           span={24}
           md={12}

@@ -27,11 +27,11 @@ const NutritionCriteriaTable = ({ rows }) => {
       dataIndex: "bmiRange",
       key: "bmiRange",
     },
-    {
-      title: "Nghề nghiệp",
-      dataIndex: "profession",
-      key: "profession",
-    },
+    // {
+    //   title: "Nghề nghiệp",
+    //   dataIndex: "profession",
+    //   key: "profession",
+    // },
     {
       title: "Mức độ hoạt động",
       dataIndex: "activityLevel",
