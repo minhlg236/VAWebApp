@@ -30,6 +30,8 @@ import ModeratedArticles from "./pages/ModeratedArticles";
 import ShippingManagement from "./pages/ShippingManagement";
 import ShippingDetail from "./pages/ShippingDetail";
 import InvalidWordManagement from "./pages/InvalidWordManagement";
+import DiscountManagement from "./pages/DiscountManagement";
+import MenuConfigManagement from "./pages/MenuConfigManagement";
 // Hàm kiểm tra xác thực (JWT)
 const isAuthenticated = () => {
   const token = localStorage.getItem("authToken");
@@ -219,7 +221,14 @@ function App() {
             </PrivateRoute>
           }
         />
-
+        <Route
+          path="/discount-management"
+          element={
+            <PrivateRoute roles={["Admin", "Staff"]}>
+              <DiscountManagement />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/articles-management"
           element={
@@ -243,6 +252,15 @@ function App() {
           element={
             <PrivateRoute roles={["Admin", "Nutritionist"]}>
               <CreateArticle />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/Menuconfig-management"
+          element={
+            <PrivateRoute roles={["Admin", "Nutritionist"]}>
+              <MenuConfigManagement />
             </PrivateRoute>
           }
         />

@@ -1,3 +1,5 @@
+// mainlayout.js
+
 import React, { useState, useEffect } from "react";
 import { Layout, Menu, Avatar, Dropdown, Spin, Button } from "antd";
 import {
@@ -7,6 +9,7 @@ import {
   FileTextOutlined,
   FormOutlined,
   ProfileOutlined,
+  PercentageOutlined, // Added icon for discount
 } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -126,6 +129,11 @@ const MainLayout = ({ children, title }) => {
         icon: <ShopOutlined />,
         label: "Quản lý đặt món",
       },
+      {
+        key: "/discount-management",
+        icon: <PercentageOutlined />,
+        label: "Quản lý giảm giá",
+      },
       // {
       //   key: "/shipping-management",
       //   icon: <ProfileOutlined />,
@@ -171,6 +179,11 @@ const MainLayout = ({ children, title }) => {
         key: "/articles-management",
         icon: <FileTextOutlined />,
         label: "Quản lý bài viết",
+      },
+      {
+        key: "/Menuconfig-management",
+        icon: <FileTextOutlined />,
+        label: "Quản lý tỉ lệ dinh dưỡng",
       },
     ],
   };
