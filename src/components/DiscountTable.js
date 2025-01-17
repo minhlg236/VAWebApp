@@ -1,4 +1,3 @@
-// discountTable.js
 import React, { useState } from "react";
 import {
   Table,
@@ -44,6 +43,8 @@ const DiscountTable = ({ rows, setDiscounts }) => {
           tierName: values.tierName,
           requiredPoints: values.requiredPoints,
           discountRate: decimalDiscountRate,
+          discountEndDate: values.discountEndDate,
+          newCreationDate: values.newCreationDate,
         },
         { headers }
       );
@@ -87,7 +88,10 @@ const DiscountTable = ({ rows, setDiscounts }) => {
   };
 
   const handleEdit = (record) => {
-    form.setFieldsValue({ ...record, discountRate: record.discountRate * 100 });
+    form.setFieldsValue({
+      ...record,
+      discountRate: record.discountRate * 100,
+    });
     setEditingTier(record);
     setIsModalVisible(true);
   };
@@ -127,32 +131,42 @@ const DiscountTable = ({ rows, setDiscounts }) => {
 
   const columns = [
     {
-      title: "Tier ID",
+      title: "ID Bậc",
       dataIndex: "tierId",
       key: "tierId",
       sorter: (a, b) => a.tierId - b.tierId,
     },
     {
-      title: "Tier Name",
+      title: "Tên Bậc",
       dataIndex: "tierName",
       key: "tierName",
       render: (tierName) => <Tag color={getTagColor(tierName)}>{tierName}</Tag>,
     },
     {
-      title: "Required Points",
+      title: "Điểm Yêu Cầu",
       dataIndex: "requiredPoints",
       key: "requiredPoints",
       sorter: (a, b) => a.requiredPoints - b.requiredPoints,
     },
     {
-      title: "Discount Rate",
+      title: "Mức Discount",
       dataIndex: "discountRate",
       key: "discountRate",
-      render: (discountRate) => `${(discountRate * 100).toFixed(2)}%`, // Display as text
+      render: (discountRate) => `${(discountRate * 100).toFixed(2)}%`,
       sorter: (a, b) => a.discountRate - b.discountRate,
     },
     {
-      title: "Actions",
+      title: "Số Ngày Hết Hạn",
+      dataIndex: "discountEndDate",
+      key: "discountEndDate",
+    },
+    {
+      title: "Số Ngày Tạo Mới",
+      dataIndex: "newCreationDate",
+      key: "newCreationDate",
+    },
+    {
+      title: "Hành Động",
       key: "actions",
       render: (_, record) => (
         <Space size="middle">
@@ -191,14 +205,14 @@ const DiscountTable = ({ rows, setDiscounts }) => {
       >
         <Form form={form} onFinish={handleUpdate} layout="vertical">
           <Form.Item
-            label="Tier Name"
+            label="Tên Bậc"
             name="tierName"
             rules={[{ required: true, message: "Please enter tier name!" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Required Points"
+            label="Điểm Yêu Cầu"
             name="requiredPoints"
             rules={[
               { required: true, message: "Please enter required points!" },
@@ -207,7 +221,7 @@ const DiscountTable = ({ rows, setDiscounts }) => {
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
-            label="Discount Rate"
+            label="Mức Discount"
             name="discountRate"
             rules={[{ required: true, message: "Please enter discount rate!" }]}
           >
@@ -216,6 +230,12 @@ const DiscountTable = ({ rows, setDiscounts }) => {
               formatter={(value) => `${value}%`}
               parser={(value) => value.replace("%", "")}
             />
+          </Form.Item>
+          <Form.Item label="Số Ngày Hết Hạn" name="discountEndDate">
+            <InputNumber style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item label="Số Ngày Tạo Mới" name="newCreationDate">
+            <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">

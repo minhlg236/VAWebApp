@@ -1,4 +1,3 @@
-// discountManagement.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -73,7 +72,7 @@ const DiscountManagement = () => {
         (activeTab === "bronze" && discount.tierName === "Bronze") ||
         (activeTab === "silver" && discount.tierName === "Silver") ||
         (activeTab === "gold" && discount.tierName === "Gold") ||
-        (activeTab === "platinum" && discount.tierName === "B?ch kim");
+        (activeTab === "platinum" && discount.tierName === "Platinum");
 
       const matchesSearchTerm =
         discount && discount.tierName
@@ -111,6 +110,8 @@ const DiscountManagement = () => {
           tierName: values.tierName,
           requiredPoints: values.requiredPoints,
           discountRate: decimalDiscountRate,
+          discountEndDate: values.discountEndDate,
+          newCreationDate: values.newCreationDate,
         },
         { headers }
       );
@@ -121,7 +122,7 @@ const DiscountManagement = () => {
       form.resetFields();
     } catch (error) {
       console.error("Error creating discount tier:", error);
-      message.error("Failed to create discount tier.");
+      message.error("Tạo giảm giá thất bại!");
     }
   };
 
@@ -162,31 +163,37 @@ const DiscountManagement = () => {
       >
         <Form form={form} onFinish={handleCreateDiscount} layout="vertical">
           <Form.Item
-            label="Tier Name"
+            label="Tên Bậc"
             name="tierName"
-            rules={[{ required: true, message: "Please enter tier name!" }]}
+            rules={[{ required: true, message: "Vui lòng hãy nhập tên bậc!" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Required Points"
+            label="Điểm Yêu Cầu"
             name="requiredPoints"
             rules={[
-              { required: true, message: "Please enter required points!" },
+              { required: true, message: "Vui lòng hãy nhập số điểm yêu cầu!" },
             ]}
           >
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
-            label="Discount Rate"
+            label="Mức Discount"
             name="discountRate"
-            rules={[{ required: true, message: "Please enter discount rate!" }]}
+            rules={[{ required: true, message: "Vui lòng hãy nhập mức giảm giá!" }]}
           >
             <InputNumber
               style={{ width: "100%" }}
               formatter={(value) => `${value}%`}
               parser={(value) => value.replace("%", "")}
             />
+          </Form.Item>
+          <Form.Item label="Số Ngày Hết Hạn" name="discountEndDate">
+            <InputNumber style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item label="Số Ngày Tạo Mới" name="newCreationDate">
+            <InputNumber style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
