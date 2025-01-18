@@ -127,7 +127,7 @@ const MainLayout = ({ children, title }) => {
       {
         key: "/orders-management",
         icon: <ShopOutlined />,
-        label: "Quản lý đặt món",
+        label: "Quản lý đơn hàng",
       },
       {
         key: "/discount-management",
@@ -145,7 +145,7 @@ const MainLayout = ({ children, title }) => {
       {
         key: "/articleModerate-management",
         icon: <FormOutlined />,
-        label: "Quản lý bài viết của khách hàng",
+        label: "Quản lý bài viết người dùng",
       },
       {
         key: "/moderated-articles",
