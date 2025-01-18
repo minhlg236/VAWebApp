@@ -1,7 +1,9 @@
+// articletable
 import React from "react";
-import { Table, Button, Space, Tag, Image } from "antd";
+import { Table, Button, Space, Tag, Image, Modal, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledTable = styled(Table)`
   .ant-table-cell {
@@ -16,8 +18,75 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const ArticleTable = ({ rows }) => {
+const ArticleTable = ({ rows, onArticleDelete }) => {
   const navigate = useNavigate();
+  const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
+  const [selectedArticleId, setSelectedArticleId] = React.useState(null);
+  const [selectedArticleData, setSelectedArticleData] = React.useState(null); // Store article data
+
+  const handleDelete = async (articleId) => {
+    setSelectedArticleId(articleId);
+    try {
+      const response = await axios.get(
+        `https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/Article/${articleId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      if (response.data) {
+        setSelectedArticleData(response.data); // Store fetched article data
+        setConfirmModalVisible(true); // Then open modal
+      } else {
+        message.error(
+          "Không thể lấy thông tin bài viết. Vui lòng thử lại sau."
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching article details:", error);
+      message.error("Không thể lấy thông tin bài viết. Vui lòng thử lại sau.");
+    }
+  };
+
+  const confirmDelete = async () => {
+    try {
+      if (!selectedArticleData) return message.error("Không có dữ liệu để xóa");
+
+      await axios.delete(
+        `https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/v1/articles/deleteArticleByUserId`,
+        {
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json",
+          },
+          data: {
+            ...selectedArticleData,
+            articleId: selectedArticleId,
+          },
+        }
+      );
+
+      message.success("Bài viết đã được xóa thành công.");
+      setConfirmModalVisible(false);
+      setSelectedArticleData(null);
+      if (onArticleDelete) {
+        onArticleDelete();
+      }
+    } catch (error) {
+      console.error("Error deleting article:", error);
+      message.error("Không thể xóa bài viết. Vui lòng thử lại sau.");
+      setConfirmModalVisible(false);
+      setSelectedArticleData(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setConfirmModalVisible(false);
+    setSelectedArticleId(null);
+    setSelectedArticleData(null);
+  };
 
   const stripHtml = (html) => {
     const tempDiv = document.createElement("div");
@@ -144,6 +213,13 @@ const ArticleTable = ({ rows }) => {
           >
             Xem chi tiết
           </Button>
+          <Button
+            type="link"
+            danger
+            onClick={() => handleDelete(record.articleId)}
+          >
+            Xóa
+          </Button>
         </Space>
       ),
       width: 150,
@@ -151,13 +227,25 @@ const ArticleTable = ({ rows }) => {
   ];
 
   return (
-    <StyledTable
-      columns={columns}
-      dataSource={rows}
-      rowKey="articleId"
-      pagination={{ pageSize: 5 }}
-      scroll={{ x: "max-content" }}
-    />
+    <>
+      <StyledTable
+        columns={columns}
+        dataSource={rows}
+        rowKey="articleId"
+        pagination={{ pageSize: 5 }}
+        scroll={{ x: "max-content" }}
+      />
+      <Modal
+        title="Xác nhận xóa"
+        open={confirmModalVisible}
+        onOk={confirmDelete}
+        onCancel={cancelDelete}
+        okText="Xóa"
+        cancelText="Hủy"
+      >
+        <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
+      </Modal>
+    </>
   );
 };
 

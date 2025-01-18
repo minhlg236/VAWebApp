@@ -1,3 +1,4 @@
+//articlemanagement:
 import React, { useEffect, useState } from "react";
 import { Button, Spin, message, Col, Row } from "antd";
 import MainLayout from "../components/MainLayout";
@@ -36,37 +37,36 @@ const ArticlesManagement = () => {
       return null;
     }
   };
+  const fetchArticles = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(
+        "https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/v1/articles/allArticleByRoleId/5",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+
+      const articlesWithImages = await Promise.all(
+        response.data.map(async (article) => {
+          const imageUrl = await fetchArticleImages(article.articleId);
+          return { ...article, imageUrl };
+        })
+      );
+
+      setArticles(articlesWithImages);
+      setFilteredArticles(articlesWithImages);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      message.error("Không thể tải danh sách bài viết.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(
-          "https://vegetariansassistant-behjaxfhfkeqhbhk.southeastasia-01.azurewebsites.net/api/v1/articles/allArticleByRoleId/5",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }
-        );
-
-        const articlesWithImages = await Promise.all(
-          response.data.map(async (article) => {
-            const imageUrl = await fetchArticleImages(article.articleId);
-            return { ...article, imageUrl };
-          })
-        );
-
-        setArticles(articlesWithImages);
-        setFilteredArticles(articlesWithImages);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-        message.error("Không thể tải danh sách bài viết.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchArticles();
   }, []);
 
@@ -79,6 +79,10 @@ const ArticlesManagement = () => {
     });
     setFilteredArticles(filtered);
   }, [articles, searchTerm]);
+
+  const handleArticleDelete = () => {
+    fetchArticles();
+  };
 
   return (
     <MainLayout title="Quản lý bài viết">
@@ -105,7 +109,10 @@ const ArticlesManagement = () => {
       {isLoading ? (
         <Spin tip="Đang tải danh sách bài viết..." />
       ) : (
-        <ArticleTable rows={filteredArticles} />
+        <ArticleTable
+          rows={filteredArticles}
+          onArticleDelete={handleArticleDelete}
+        /> // Pass onArticleDelete
       )}
     </MainLayout>
   );
