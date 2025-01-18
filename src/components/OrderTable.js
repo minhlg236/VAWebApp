@@ -104,10 +104,12 @@ const OrderTable = ({
 
   const columns = [
     {
-      title: "ID Đơn Hàng",
+      title: "ID",
       dataIndex: "orderId",
       key: "orderId",
       sorter: (a, b) => a.orderId - b.orderId,
+      sortDirections: ["ascend", "descend"],
+      defaultSortOrder: "descend",
     },
     {
       title: "ID Người Dùng",

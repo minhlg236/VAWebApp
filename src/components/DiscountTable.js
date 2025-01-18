@@ -131,7 +131,7 @@ const DiscountTable = ({ rows, setDiscounts }) => {
 
   const columns = [
     {
-      title: "ID Bậc",
+      title: "ID",
       dataIndex: "tierId",
       key: "tierId",
       sorter: (a, b) => a.tierId - b.tierId,
