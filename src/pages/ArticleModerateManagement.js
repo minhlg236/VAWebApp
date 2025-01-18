@@ -60,7 +60,7 @@ const ArticleModerateManagement = () => {
   }, [searchTerm, articles]);
 
   return (
-    <MainLayout title="Quản lý bài viết chờ duyệt">
+    <MainLayout title="Quản lý bài viết người dùng">
       <div
         style={{
           marginBottom: "16px",
