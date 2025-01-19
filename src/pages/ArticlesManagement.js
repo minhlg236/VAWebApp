@@ -68,7 +68,7 @@ const ArticlesManagement = () => {
 
   useEffect(() => {
     fetchArticles();
-  }, );
+  }, []);
 
   useEffect(() => {
     const filtered = articles.filter((article) => {
